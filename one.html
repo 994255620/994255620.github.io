@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>时间练习</title>
+</head>
+<body>
+<script type="text/javascript">
+
+var greeting;
+
+var nowDate = new Date();
+var nowHour = nowDate.getHours();
+var nowMinute = nowDate.getMinutes();
+var nowSecond = nowDate.getSeconds();
+//格式化
+if (nowMinute < 10)
+{
+    nowMinute = "0" + nowMinute;
+}
+
+if (nowSecond < 10)
+{
+    nowSecond = "0" + nowSecond;
+}
+//判断问候语
+if (nowHour < 12)
+{
+    greeting = "Good Morning";
+}
+else if (nowHour < 17)
+{
+    greeting = "Good Afternoon";
+}
+else
+{
+    greeting = "Good Evening";
+}
+   
+document.write("<h4>" + greeting + " and welcome to my website</h4>")
+document.write("你现在的时间是 ");
+document.write(nowHour + ":" + nowMinute + ":" + nowSecond);
+
+</script>
+</body>
+</html>
