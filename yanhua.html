@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+
+   <style>
+   .time{
+    float: right;
+    color:purple;
+
+   }
+    .item a {
+    color: #fff;
+    display: block;
+    font-family: 微软雅黑;
+    font-size: 16px;
+    text-align: center;
+}
+
+body {
+    background:  url("http://www.xinhuanet.com/politics/img0627/bg2.jpg") no-repeat scroll 50% 0;
+    padding-top: 120px;
+
+}
+
+.middle{
+    background:orange;
+
+
+}
+.imageRotation{
+ height:270px;
+ width:400px;
+ overflow:hidden;  /*--超出容器的所有元素都不可见--*/
+ position:relative;  /*--相对定位--*/
+ border:10px solid #eee;
+ bodrer-radius:5px;
+ -webkit-border-radius:5px;
+ -moz-border-radius:5px;
+ 
+ }
+/*-------------图片容器---------------*/
+.imageBox{
+ position:absolute;  /*--固定定位--*/
+ height:270px;
+ top:0px;
+ left:0px;
+ overflow:hidden;
+
+ }
+.imageBox img {
+ display:block;
+ height:270px;
+ width:400px;
+ float:left;
+ border:none;
+
+ }
+/*-------------标题容器---------------*/
+.titleBox{
+ position:absolute;
+ bottom:0px;
+ width:400px;
+ height:40px;
+ overflow:hidden;
+ }
+.titleBox p{
+ position:absolute;
+ bottom:-40px;
+ width:370px;
+ height:40px;
+ margin:0px;
+ padding:0px 10px;
+ line-height:40px;
+ z-index:1;
+ border-top:1px solid #000;
+ background-color:#000;
+ color:#fff;
+ font-family:"微软雅黑","yahei";
+ opacity:0.5;
+ -moz-opacity:0.5;
+ -webkit-opacity:0.5;
+ filter:alpha(opacity=50);
+ }
+.titleBox p span{
+ opacity:1;
+ -moz-opacity:1;
+ -webkit-opacity:1;
+ filter:alpha(opacity=100);
+ }
+.titleBox p.active{
+ bottom:0px;
+ }
+/*-------------图标容器---------------*/
+.icoBox{
+ position:absolute;  /*--固定定位--*/
+ bottom:14px;
+ right:15px;
+ width:76px;
+ height:12px;
+ text-align:center;
+ line-height:40px;
+ z-index:2;
+ }
+.icoBox span{
+ display:block;
+ float:left;
+ height:12px;
+ width:12px;
+ margin-left:3px;
+ overflow:hidden;
+ background:url("images/ico.png") 0px 0px no-repeat;
+ cursor:pointer;
+ }
+.icoBox span.active {
+ background-position:0px -12px;
+ cursor:default;
+ }
+
+
+   </style>
+   <script type="text/javascript" src="http://www.itxueyuan.org/uploads/javascript/jquery.js"></script>
+   <script>
+
+$(document).ready(function() {
+ $(".imageRotation").each(function(){
+ // 获取有关参数
+ var imageRotation = this,  // 图片轮换容器
+ imageBox = $(imageRotation).children(".imageBox")[0],  // 图片容器
+ titleBox = $(imageRotation).children(".titleBox")[0],  // 标题容器
+ titleArr = $(titleBox).children(),  // 所有标题（数组）
+ icoBox = $(imageRotation).children(".icoBox")[0],  // 图标容器
+ icoArr = $(icoBox).children(),  // 所有图标（数组）
+ imageWidth = $(imageRotation).width(),  // 图片宽度
+ imageNum = $(imageBox).children().size(),  // 图片数量
+ imageReelWidth = imageWidth*imageNum,  // 图片容器宽度
+ activeID = parseInt($($(icoBox).children(".active")[0]).attr("rel")),  // 当前图片ID
+ nextID = 0,  // 下张图片ID
+ setIntervalID,  // setInterval() 函数ID
+ intervalTime = 1000,  // 间隔时间
+ imageSpeed =500,  // 图片动画执行速度
+ titleSpeed =250;  // 标题动画执行速度
+ // 设置 图片容器 的宽度
+ $(imageBox).css({'width' : imageReelWidth + "px"});
+ // 图片轮换函数
+ var rotate=function(clickID){
+ if(clickID){ nextID = clickID; }
+ else{ nextID=activeID<=4 ? activeID+1 : 1; }
+ // 交换图标
+ $(icoArr[activeID-1]).removeClass("active");
+ $(icoArr[nextID-1]).addClass("active");
+ // 交换标题
+ $(titleArr[activeID-1]).animate(
+ {bottom:"-40px"},
+ titleSpeed,
+ function(){
+ $(titleArr[nextID-1]).animate({bottom:"0px"} , titleSpeed);
+ }
+ );
+ // 交换图片
+ $(imageBox).animate({left:"-"+(nextID-1)*imageWidth+"px"} , imageSpeed);
+ // 交换IP
+ activeID = nextID;
+ }
+ setIntervalID=setInterval(rotate,intervalTime);
+ $(imageBox).hover(
+ function(){ clearInterval(setIntervalID); },
+ function(){ setIntervalID=setInterval(rotate,intervalTime); }
+ ); 
+ $(icoArr).click(function(){
+ clearInterval(setIntervalID);
+ var clickID = parseInt($(this).attr("rel"));
+ rotate(clickID);
+ setIntervalID=setInterval(rotate,intervalTime);
+ });
+ });
+});
+</script>
+           
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>美丽新西藏新闻专题</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/nivo-slider.css">
+    <link rel="stylesheet" href="css/themes/default/default.css">
+    <!-- <link rel="stylesheet" href="css/themes/bar/bar.css"> -->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row head-nav">
+            <div class="head-nav-wrap">
+                <div class="home">
+                    <span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;新华时政
+                </div>
+                <div class="site-nav"><span>新华网首页</span>|<span>新观察</span>|<span>微观中国</span>|<span>新华悦读</span>|<span>新华资料</span>|<span>新华法治</span>|<span>新华地方</span></div>
+
+            </div>
+        </div>
+        
+        <div class="row topic-abs">
+        <div class=middle>
+            <div class="topic-wrap">
+                <div class="topic-title">
+                 <div class="time">
+                <script type="text/javascript">
+
+var greeting;
+
+var nowDate = new Date();
+var nowHour = nowDate.getHours();
+var nowMinute = nowDate.getMinutes();
+var nowSecond = nowDate.getSeconds();
+//格式化
+if (nowMinute < 10)
+{
+    nowMinute = "0" + nowMinute;
+}
+
+if (nowSecond < 10)
+{
+    nowSecond = "0" + nowSecond;
+}
+//判断问候语
+if (nowHour < 12)
+{
+    greeting = "Good Morning";
+}
+else if (nowHour < 17)
+{
+    greeting = "Good Afternoon";
+}
+else
+{
+    greeting = "Good Evening";
+}
+   
+document.write("<h4>" + greeting + " and welcome to my website</h4>")
+document.write("杨老师您现在的时间是 ");
+document.write(nowHour + ":" + nowMinute + ":" + nowSecond);
+
+</script>
+                </div>
+                    <h1>美丽新西藏</h1>
+
+                    <p>
+                        庆祝西藏和平解放65周年
+                    </p>
+
+                </div>
+               
+                <div class="abs">
+                    <p>６５年前的１９５１年５月２３日，中央人民政府和西藏地方政府在北京签订了关于和平解放西藏办法的“十七条协议”，开启了西藏社会发展史上具有划时代意义的历史转折。从此，政教合一的“喇嘛王国”变成历史，一个崭新的西藏开始屹立在地球之巅。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h2>图片</h2>
+                <div class="slider-wrapper theme-default">
+                    <div id="slider" class="nivoSlider">
+                        <img src="images/cray.jpg" alt="疯狂外星人" title="">
+                        <img src="images/toystory.jpg" alt="玩具总动员" title="">
+                        <img src="images/nemo.jpg" alt="海底总动员" title="">
+                        <img src="images/banner.jpg" alt="猫" title="">
+                    </div>
+                </div>
+                <h2>聚焦</h2>
+                <div class="news-list">
+                    <h3>全方位惠民政策带来雪域高原农牧民幸福新生活</h3>
+                    <p class="summary">西藏自治区自1951年和平解放以来，党中央、国务院共召开六次西藏工作座谈会，在政策上给予农牧区大幅倾斜，各项财政优惠补助政策从无到有，目前增至74项，覆盖农牧业生产、扶贫开发、教育科技、卫生医疗、社会保障等多领域。</p>
+                    <p class="news-meta">2016-05-24</p>
+                </div>
+                <div class="news-list">
+                    <h3>全方位惠民政策带来雪域高原农牧民幸福新生活</h3>
+                    <p class="summary">西藏自治区自1951年和平解放以来，党中央、国务院共召开六次西藏工作座谈会，在政策上给予农牧区大幅倾斜，各项财政优惠补助政策从无到有，目前增至74项，覆盖农牧业生产、扶贫开发、教育科技、卫生医疗、社会保障等多领域。</p>
+                    <p class="news-meta">2016-05-24</p>
+                </div>
+                <div class="news-list">
+                    <h3>全方位惠民政策带来雪域高原农牧民幸福新生活</h3>
+                    <p class="summary">西藏自治区自1951年和平解放以来，党中央、国务院共召开六次西藏工作座谈会，在政策上给予农牧区大幅倾斜，各项财政优惠补助政策从无到有，目前增至74项，覆盖农牧业生产、扶贫开发、教育科技、卫生医疗、社会保障等多领域。</p>
+                    <p class="news-meta">2016-05-24</p>
+                </div>
+                <div class="news-list">
+                    <h3>全方位惠民政策带来雪域高原农牧民幸福新生活</h3>
+                    <p class="summary">西藏自治区自1951年和平解放以来，党中央、国务院共召开六次西藏工作座谈会，在政策上给予农牧区大幅倾斜，各项财政优惠补助政策从无到有，目前增至74项，覆盖农牧业生产、扶贫开发、教育科技、卫生医疗、社会保障等多领域。</p>
+                    <p class="news-meta">2016-05-24</p>
+                </div>
+                <h2>更多新闻</h2>
+                <div>
+                    <script src="http://news.baidu.com/ns?word=title%3A%E8%A5%BF%E8%97%8F%E5%92%8C%E5%B9%B3%E8%A7%A3%E6%94%BE&tn=newsfcu&from=news&cl=2&rn=6&ct=0"></script>
+                </div>
+
+               <style>canvas{background-color:#666666;z-index:9999;}
+
+</style>
+<canvas id="canvas-keleyi-com"></canvas>
+<script>
+
+var c = document.getElementById('canvas-ke'+'leyi-com');
+if (!c.getContext) alert('请使用支持HTML5的浏览器，例如Chrome，IE9以上。');
+else(function(c, cvs) {
+//随着窗口调整画布大小
+var W, H;
+var up = 0; 
+//(onresize = function() {
+//     c.width = W = window.innerWidth;
+//     c.height = H = window.innerHeight;
+//    })();
+c.width=W=600;
+c.height=H=400;
+//生成一个烟花
+function createPT(x, y, r, g, b) {
+return {
+r: r,g: g,b: b,
+x: x,y: y,
+//轨迹序列
+pl: [],
+dx: rnd(20) - 10,
+dy: rnd(10) - 7,
+life: 30 + rnd(30),
+//移动函数，修改加速度和坐标
+move: function() {
+this.dx *= .98;
+this.dy *= .98;
+this.dy += .22;
+this.x += this.dx;
+this.y += this.dy;
+this.pl.push([this.x, this.y]);
+//保持轨迹长度
+if (this.pl.length > 10) this.pl.shift();
+this.life--;
+}
+};
+}
+//总烟火数组
+var B = [];
+//在x,y位置创建一个烟火
+function createBoom(x, y) {
+var q = [],
+r = rnd(255) | 0,
+g = rnd(255) | 0,
+b = rnd(255) | 0;
+for (var i = 0; i < rnd(16) + 15; i++) q.push(createPT(x, y, r, g, b));
+B.push(q);
+}
+setInterval(function() {
+cvs.clearRect(0, 0, W, H);
+//依次绘制烟火
+for (var n = 0; n < B.length; n++) {
+var q = B[n];
+for (var i = 0; i < q.length; i++) {
+var pt = q[i];
+pt.move();
+dq(pt.pl, pt.life / 30, pt.r, pt.g, pt.b);
+//超过生存周期就消失 柯 乐 义
+if (pt.life <= 0) q.splice(i, 1);
+}
+//当一个烟火包含的烟花个数为零，则消灭这个烟火
+if (!B[n].length) B.splice(n, 1);
+}
+//每隔一段时间添加一个新烟火
+if (new Date - up < 200 + rnd(200)) return;
+up = new Date;
+createBoom(rnd(W / 2) + W / 4, rnd(50) + 50);
+},20);
+function rnd(n) {
+return (n || 1) * Math.random();
+}
+function dq(ar, z, r, g, b) {
+cvs.save();
+//绘制轨迹。思路是每次都绘制一条透明的轨迹，叠加起来形成一条渐变的样子
+for (var i = 0; i < ar.length; i++) {
+cvs.strokeStyle = 'rgba(' + r + ',' + g + ',' + b + ',' + Math.abs(.1 * z) + ')';
+cvs.lineWidth = Math.min(i + 1, 4)*2;
+cvs.beginPath();
+cvs.moveTo(ar[i][0], ar[i][1]);
+for (var j = i + 1; j < ar.length; j++) cvs.lineTo(ar[j][0], ar[j][1]);
+cvs.stroke();
+}
+cvs.restore();
+}
+})(c, c.getContext('2d'));
+var fgm = {
+ on: function(element, type, handler) {
+  return element.addEventListener ? element.addEventListener(type, handler, false) : element.attachEvent("on" + type, handler)
+ },
+ un: function(element, type, handler) {
+  return element.removeEventListener ? element.removeEventListener(type, handler, false) : element.detachEvent("on" + type, handler)
+ },
+ bind: function(object, handler) {
+  return function() {
+   return handler.apply(object, arguments) 
+  } 
+ },
+ randomRange: function(lower, upper) {
+  return Math.floor(Math.random() * (upper - lower + 1) + lower) 
+ },
+ getRanColor: function() {
+  var str = this.randomRange(0, 0xFFFFFF).toString(16);
+  while(str.length < 6) str = "0" + str;
+  return "#" + str 
+ }
+};
+//初始化对象
+function FireWorks() {
+ this.type = 0;
+ this.timer = null;
+ this.fnManual = fgm.bind(this, this.manual)
+}
+FireWorks.prototype = {
+ initialize: function() {
+  clearTimeout(this.timer);
+  fgm.un(document, "click", this.fnManual);
+  switch(this.type) {
+   case 1:
+    fgm.on(document, "click", this.fnManual);
+    break;
+   case 2:
+    this.auto();
+    break;
+  };
+ },
+ manual: function(event) {
+  event = event || window.event;
+  this.__create__({
+   x: event.clientX,
+   y: event.clientY  
+  });
+ },
+ auto: function ()
+ {
+  var that = this;
+  that.timer = setTimeout(function() {   
+   that.__create__({
+    x: fgm.randomRange(50, document.documentElement.clientWidth - 50),
+    y: fgm.randomRange(50, document.documentElement.clientHeight - 150)
+   }) 
+   that.auto();
+  }, fgm.randomRange(900, 1100))
+ },
+ __create__: function (param)
+ {
+  var that = this;
+  var oEntity = null;
+  var oChip = null;
+  var aChip = [];
+  var timer = null;
+  var oFrag = document.createDocumentFragment();
+  
+  oEntity = document.createElement("div");
+  with(oEntity.style) {
+   position = "absolute";
+   top = document.documentElement.clientHeight + "px";
+   left = param.x + "px";
+   width = "4px";
+   height = "30px";
+   borderRadius = "4px";
+   background = fgm.getRanColor();
+  };
+  document.body.appendChild(oEntity);
+  oEntity.timer = setInterval(function() {
+   oEntity.style.top = oEntity.offsetTop - 20 + "px";
+   if(oEntity.offsetTop <= param.y) {
+    clearInterval(oEntity.timer);
+    document.body.removeChild(oEntity);
+    (function() {
+     //在50-100之间随机生成碎片
+     //由于IE浏览器处理效率低, 随机范围缩小至20-30
+     //自动放烟花时, 随机范围缩小至20-30
+     var len = (/msie/i.test(navigator.userAgent) || that.type == 2) ? fgm.randomRange(20, 30) : fgm.randomRange(50, 100)     
+     for (i = 0; i < len; i++) {
+      oChip = document.createElement("div");
+      with(oChip.style) {
+       position = "absolute";
+       top = param.y + "px";
+       left = param.x + "px";
+       width = "4px";
+       height = "4px";
+       overflow = "hidden";
+       borderRadius = "4px";
+       background = fgm.getRanColor();    
+      };
+      oChip.speedX = fgm.randomRange(-20, 20);
+      oChip.speedY = fgm.randomRange(-20, 20);
+      oFrag.appendChild(oChip);
+      aChip[i] = oChip
+     };
+     document.body.appendChild(oFrag);
+     timer = setInterval(function() {
+      for(i = 0; i < aChip.length; i++) {
+       var obj = aChip[i];
+       with(obj.style) {
+        top = obj.offsetTop + obj.speedY + "px";
+        left = obj.offsetLeft + obj.speedX + "px";
+       };
+       obj.speedY++;
+       (obj.offsetTop < 0 || obj.offsetLeft < 0 || obj.offsetTop > document.documentElement.clientHeight || obj.offsetLeft > document.documentElement.clientWidth) && (document.body.removeChild(obj), aChip.splice(i, 1))
+      };
+      !aChip[0] && clearInterval(timer);
+     }, 30)
+    })()
+   }
+  }, 30)
+ }
+};
+fgm.on(window, "load", function() {
+ var oTips = document.getElementById("tips");
+ var aBtn = oTips.getElementsByTagName("a");
+ var oFireWorks = new FireWorks();
+ 
+ fgm.on(oTips, "click", function(event) {
+  var oEvent = event || window.event;
+  var oTarget = oEvent.target || oEvent.srcElement;
+  var i = 0;
+  if(oTarget.tagName.toUpperCase() == "A") {
+   for(i = 0; i < aBtn.length; i++) aBtn[i].className = "";
+   switch(oTarget.id) {
+    case "manual":
+     oFireWorks.type = 1;
+     break;
+    case "auto":
+     oFireWorks.type = 2;
+     break;
+    case "stop":
+     oFireWorks.type = 0;
+     break;
+   }
+   oFireWorks.initialize();
+   oTarget.className = "active";
+   oEvent.stopPropagation ? oEvent.stopPropagation() : oEvent.cancelBubble = true
+  }
+ });
+});
+fgm.on(document, "contextmenu", function(event) {
+ var oEvent = event || window.event;
+ oEvent.preventDefault ? oEvent.preventDefault() : oEvent.returnValue = false
+});
+
+</script>
+            </div>
+            <div class="col-sm-4">
+                <h2>大美西藏</h2>
+                <div class="image">
+                    <a href="#"><img class="" src="images/1.jpg" alt=""></a>
+                    <p class="pic-title"><a href="">西藏美景</a></p>
+                </div>
+                <div class="image">
+                    <a href="#"><img class="" src="images/0.jpg" alt=""></a>
+                    <p class="pic-title"><a href="">西藏美景</a></p>
+                </div>
+                <div class="image">
+                    <a href="#"><img class="" src="images/2.jpg" alt=""></a>
+                    <p class="pic-title"><a href="">西藏美景</a></p>
+                </div>
+                <div class="image">
+                    <a href="#"><img class="" src="images/3.jpg" alt=""></a>
+                    <p class="pic-title"><a href="">西藏美景</a></p>
+                </div>
+                <h2>注意休息</h2>
+               <embed style="diaply: block" pluginspage=http://www.macromedia.com/go/getflashplayer src=http://www.51xflash.com/uploads/media/flashtime/2_090612185844.swf width=220 height=220 type=application/x-shockwave-flash allowScriptAccess="never" allowNetworking="internal" invokeURLs="false" quality="high" wmode="transparent"></embed>
+
+                <h2 >趣图天下</h2>
+                <div class="imageRotation"> 
+ <div class="imageBox">
+ <a href="http://www.itxueyuan.org" target="_blank"><img src="images/1.jpg" /></a>
+ <a href="http://www.itxueyuan.org" target="_blank"><img src="images/M.jpg" /></a>
+ <a href="http://www.itxueyuan.org" target="_blank"><img src="images/N.jpg" /></a>
+ <a href="http://www.itxueyuan.org" target="_blank"><img src="images/O.jpg" /></a>
+ <a href="http://www.itxueyuan.org" target="_blank"><img src="images/P.jpg" /></a>
+ <a href="http://www.itxueyuan.org" target="_blank"><img src="images/Q.jpg" /></a>
+ 
+       
+ </div>
+    <div class="titleBox">
+     <p class="active"><span>第一张</span></p>
+        <p>第二张</p>
+        <p>第三张</p>
+        <p>第四张</p>
+        <p>第五张</p>
+    </div>
+ <div class="icoBox">
+ <span class="active" rel="1">1</span>
+ <span rel="2">2</span>
+ <span rel="3">3</span>
+ <span rel="4">4</span>
+        <span rel="5">5</span>
+ </div>
+</div>
+              
+
+                <div>
+
+                    <script type="text/javascript">
+
+                    Weibo.encoding = 'gbk';
+                    var list2 = new Weibo.Widgets.List({
+                        container: '#list2',
+                        showUserCard: false
+                    });
+                    Weibo._getRequest({
+                        url: 'http://topic.t.sina.com.cn/interface/ajax/get_feed_by_keyword',
+                        data: {
+                            keyword: '西藏和平解放',
+                            page: 1,
+                            pagesize: 10
+                        },
+                        onsuccess: function(data) {
+                            list2.reset(data);
+                            setTimeout(function() {
+                                $('.weibo-list-videolink').each(function() {
+                                    var parent = $(this).closest('.weibo-list-item');
+                                    var url = parent.find('.weibo-list-time a').attr('href');
+                                    $(this).attr('href', url).removeClass();
+                                });
+                            }, 200);
+                        },
+                        onfailure: function(status) {}
+                    });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-1.12.4.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.nivo.slider.pack.js"></script>
+    <script>
+    $(window).load(function() {
+        $('#slider').nivoSlider({
+            controlNav: false
+        });
+    });
+    </script>
+
+</body>
+
+</html>
